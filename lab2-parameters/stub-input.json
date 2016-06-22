@@ -1,0 +1,15 @@
+[
+  {
+    "ParameterKey": "AMI",
+    "ParameterValue": "ami-a4827dc9"
+  },
+  {
+    "ParameterKey": "Subnet",
+    "ParameterValue": "subnet-02396f5a"
+  },
+  {
+    "ParameterKey": "InstanceType",
+    "ParameterValue": "t2.nano"
+  }
+
+]

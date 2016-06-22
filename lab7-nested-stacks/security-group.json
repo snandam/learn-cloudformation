@@ -1,0 +1,41 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "Allow SSH Access",
+	"Parameters": {
+    "VPC": {
+			"Description": "VPC to launch virtual server in",
+			"Type": "AWS::EC2::VPC::Id"
+		},
+    "TagName": {
+      "Description": "Value for the Tag: Name",
+      "Type": "String"
+    }
+  },
+	"Resources": {
+    "SecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": {"Ref": "TagName" },
+        "VpcId": {"Ref": "VPC"},
+        "SecurityGroupIngress": [{
+          "CidrIp": "0.0.0.0/0",
+          "FromPort": 22,
+          "IpProtocol": "tcp",
+          "ToPort": 22
+        }],
+        "Tags": [
+          {
+            "Key": "Name",
+						"Value": {"Ref": "TagName" }
+          }
+        ]
+      }
+    }
+	},
+	"Outputs": {
+		"GroupID": {
+			"Value": {"Ref": "SecurityGroup"},
+			"Description": "ID of virtual server"
+		}
+  }
+}

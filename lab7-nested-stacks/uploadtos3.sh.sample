@@ -1,0 +1,1 @@
+aws s3 cp $PWD S3://cf-templates-d-us-east-1/templates --include *.json

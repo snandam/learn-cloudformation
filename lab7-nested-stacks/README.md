@@ -42,7 +42,8 @@ Making use of nested stacks. Use modules trying to avoid complex and large templ
 ## Sample solution
 This lab includes a sample solution ``sample-solution.json``. Use it if you are stuck during the creation of your template of if you want to review your results.
 
-AlIAJS3hJZFHhjh54DGQ
+
+
 ### Upload all json files to s3 bucket and get the url of those back. Use those url's in the parent json file
 
 
