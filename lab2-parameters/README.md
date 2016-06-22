@@ -40,3 +40,8 @@ Use input parameters to be able to re-use CloudFormation templates-
 
 ## Sample solution
 This lab includes a sample solution ``sample-solution.json``. Use it if you are stuck during the creation of your template of if you want to review your results.
+
+
+
+aws cloudformation create-stack --stack-name "lab2" --template-body file://$PWD/stub.json  --parameters file://$PWD/stub-input.json
+aws cloudformation delete-stack --stack-name "lab2"

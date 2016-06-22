@@ -25,3 +25,10 @@ Create a CloudFormation stack based on an existing template.
 1. Select **Delete Stack** from the **Actions** menu.
 1. Confirm the deletion of your stack.
 1. Congratulations! You are done with the lab!
+
+
+Running using the aws cli
+
+
+aws cloudformation create-stack --stack-name "lab0" --template-body file://$PWD/demo.json --parameters file://$PWD/demo-input.json
+aws cloudformation delete-stack --stack-name "lab0"

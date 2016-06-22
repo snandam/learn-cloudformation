@@ -41,3 +41,17 @@ Making use of nested stacks. Use modules trying to avoid complex and large templ
 
 ## Sample solution
 This lab includes a sample solution ``sample-solution.json``. Use it if you are stuck during the creation of your template of if you want to review your results.
+
+AlIAJS3hJZFHhjh54DGQ
+### Upload all json files to s3 bucket and get the url of those back. Use those url's in the parent json file
+
+
+aws s3 sync . s3://cf-templates-1549fkchfy875-us-east-1/templates/
+aws s3 ls s3://cf-templates-1549fkchfy875-us-east-1/templates/
+aws cloudformation validate-template --template-body file://$PWD/stub.json
+
+
+aws cloudformation create-stack --stack-name "lab7" --template-body file://$PWD/stub.json  --parameters file://$PWD/stub-input.json
+aws cloudformation delete-stack --stack-name "lab7"
+
+aws cloudformation update-stack --stack-name "lab7" --template-body file://$PWD/stub.json --parameters file://$PWD/stub-input.json

@@ -38,3 +38,10 @@ Create a S3 bucket with the help of CloudFormation.
 
 ## Sample solution
 This lab includes a sample solution ``sample-solution.json``. Use it if you are stuck during the creation of your template of if you want to review your results.
+
+
+Running using the aws cli
+
+
+aws cloudformation create-stack --stack-name "lab1" --template-body file://$PWD/stub.json
+aws cloudformation delete-stack --stack-name "lab1"

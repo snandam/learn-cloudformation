@@ -1,11 +1,7 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "EC2 instance with functions",
+	"Description": "EC2 instance with parameters",
 	"Parameters": {
-		"KeyName": {
-			"Description": "Key Pair name",
-			"Type": "AWS::EC2::KeyPair::KeyName"
-		},
 		"VPC": {
 			"Description": "VPC to launch virtual server in",
 			"Type": "AWS::EC2::VPC::Id"
@@ -14,20 +10,55 @@
 			"Description": "subnet to launch virtual server in",
 			"Type": "AWS::EC2::Subnet::Id"
 		},
-		"URL": {
-			"Description": "URL for load testing",
-			"Type": "String",
-			"Default": "http://widdix.net/"
-		}
+    "AMI": {
+      "Description": "AMI to start virtual server",
+      "Type": "String",
+      "Default": "ami-a4827dg9",
+      "MaxLength": 12,
+      "MinLength": 12
+    },
+    "Instance": {
+      "Description": "instance type of virtual server",
+      "Type": "String",
+      "Default": "t2.micro",
+      "AllowedValues": ["t2.micro", "t2.small", "t2.medium", "t2.nano"]
+    }
 	},
 	"Resources": {
-		// add stacks
-		// https://s3-eu-west-1.amazonaws.com/learn-cloudformation/lab7-nested-stacks/ec2-stack.json
-		// https://s3-eu-west-1.amazonaws.com/learn-cloudformation/lab7-nested-stacks/s3-stack.json
-
+		"OpsSecurity": {
+			"Type" : "AWS::CloudFormation::Stack",
+			"Properties" : {
+				"Parameters" : {
+					"VPC": {"Ref": "VPC"},
+					"TagName": "public access"
+				},
+				"TemplateURL" : "https://s3.amazonaws.com/cf-templates-1549fkchfy875-us-east-1/templates/security-group.json",
+				"TimeoutInMinutes" : "5"
+			}
+		},
+		"OpsEC2instance" : {
+			"Type" : "AWS::CloudFormation::Stack",
+			"Properties" : {
+				"Parameters" : {
+					"Subnet": {"Ref": "Subnet"},
+					"AMI": {"Ref": "AMI"},
+					"Instance": {"Ref": "Instance"},
+					"TagName" : "Ops ec2 instance",
+					"SecurityGroup": {"Fn::GetAtt" : ["OpsSecurity", "Outputs.GroupID"]}
+				},
+				"TemplateURL" : "https://s3.amazonaws.com/cf-templates-1549fkchfy875-us-east-1/templates/ops-ec2.json",
+				"TimeoutInMinutes" : "5"
+			}
+		}
 	},
 	"Outputs": {
-		// TODO add outputs
-		// from stack lab6-mappings (instance id and public IP address)
+		"GroupID": {
+			"Value": {"Fn::GetAtt" : ["OpsSecurity", "Outputs.GroupID"]},
+			"Description": "Security Group ID"
+		},
+		"InstanceID": {
+			"Value": {"Fn::GetAtt" : ["OpsEC2instance", "Outputs.InstanceID"]},
+			"Description": "Security Group ID"
+		}
 	}
 }

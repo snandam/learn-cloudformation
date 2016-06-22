@@ -48,3 +48,8 @@ Use outputs to get access to informations about the resources created by a stack
 
 ## Sample solution
 This lab includes a sample solution ``sample-solution.json``. Use it if you are stuck during the creation of your template of if you want to review your results.
+
+
+## Running the solution using aws cli
+aws cloudformation create-stack --stack-name "lab4" --template-body file://$PWD/stub.json  --parameters file://$PWD/stub-input.json
+aws cloudformation delete-stack --stack-name "lab4"

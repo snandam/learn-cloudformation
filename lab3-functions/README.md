@@ -47,3 +47,9 @@ ab -n 1000 -c 4 $URL
 
 ## Sample solution
 This lab includes a sample solution ``sample-solution.json``. Use it if you are stuck during the creation of your template of if you want to review your results.
+
+
+
+
+aws cloudformation create-stack --stack-name "lab3" --template-body file://$PWD/stub.json  --parameters file://$PWD/stub-input.json
+aws cloudformation delete-stack --stack-name "lab3"
